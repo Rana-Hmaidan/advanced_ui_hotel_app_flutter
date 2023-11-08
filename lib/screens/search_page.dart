@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_ui/models/hotel_model.dart';
+import 'package:flutter_advanced_ui/screens/hotel_details_page.dart';
 import 'package:flutter_advanced_ui/shared/theme_constants.dart';
 import 'package:flutter_advanced_ui/shared/widget_extention.dart';
 import 'package:flutter_advanced_ui/widgets/home_tab_bar_widget.dart';
@@ -108,12 +109,17 @@ class _SearchPageState extends State<SearchPage> {
             height: 306,
             child: Swiper( 
               index: 0,
-              itemWidth: MediaQuery.of(context).size.width,
-              itemHeight: MediaQuery.of(context).size.height,
+              itemWidth: context.screenWidth,
+              itemHeight: context.screenHeight,
               itemCount:_hotels.length,
               controller: _controller,
               layout: SwiperLayout.TINDER,
-              itemBuilder: (BuildContext context, int index) => HotelCardView(hotelModel: _hotels[index]),
+              itemBuilder: (_, index) => InkWell(
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => HotelDetailsPage(model: _hotels[index],)));
+                } ,
+                child: HotelCardView(hotelModel: _hotels[index])
+              ),
               autoplay: true,
               loop: true,
               duration: 400,
@@ -172,8 +178,9 @@ class _SearchPageState extends State<SearchPage> {
           //       _controller.addItem(widget);
           //       //Take action on the swiped widget based on the direction of swipe
           //       //Return false to not animate cards
+          //        _activeCardIndex = (index + 1) % (_hotels.length);
           //       setState(() {
-          //         _activeCardIndex = index + 1;
+          //         
           //       });
           //     },
           //     enableSwipeUp: true,
@@ -182,11 +189,14 @@ class _SearchPageState extends State<SearchPage> {
           //   ),
           // ): const SizedBox(),
 
- // pagination: const SwiperPagination(
-              //     builder: DotSwiperPaginationBuilder(
-              //       color: AppColors.lightSecondary,
-              //       activeColor: AppColors.secondary,
-              //       activeSize: 12,
-              //       space: 4,
-              //   ),
-              // ),
+// to loop swiper 
+//    i 
+// [item1, item2, item3 ]
+// i = 0 , length = 3 , lastIndex = 2
+// user swiped the card 
+// i++ -> view next card 
+// i = 1
+// user swiped the card 
+// i++ -> view next card 
+// i = 2 
+// i += i % lastIndex -> to retrive index to 0 

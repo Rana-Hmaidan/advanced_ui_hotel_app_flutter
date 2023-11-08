@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_ui/models/hotel_model.dart';
 import 'package:flutter_advanced_ui/shared/theme_constants.dart';
+import 'package:flutter_advanced_ui/widgets/app_custom_icon_button.dart';
+import 'package:flutter_advanced_ui/widgets/location_widget.dart';
 import 'package:flutter_advanced_ui/widgets/rate_widget.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
@@ -30,23 +32,11 @@ class HotelCardView extends StatelessWidget {
                 child: Image.network(hotelModel.image, fit: BoxFit.cover),
               ),
             ),
-            Positioned(
+            const Positioned(
               right: 16,
               top: 16,
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 4,
-                      blurRadius: 4,
-                    ),
-                  ],
-                ),
-                child: const Icon(
+              child: AppCustomIconButton(
+                icon : Icon(
                   Icons.favorite,
                   color: Color(0xffFE2372),
                   size: 25,
@@ -88,27 +78,7 @@ class HotelCardView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: AppColors.secondary,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              hotelModel.location,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: AppColors.secondary,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const RateWidget(doubleRate: 4.9),
-                        ],
-                      ),
+                      LocationWidget(location: hotelModel.location, rate: 4.9),
                     ],
                   ),
                 ),

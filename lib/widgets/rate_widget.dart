@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RateWidget extends StatelessWidget {
-  const RateWidget({super.key, required this.doubleRate});
+  const RateWidget({super.key, required this.doubleRate, this.textColor});
 
   final double doubleRate;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +12,9 @@ class RateWidget extends StatelessWidget {
       children: [
         Text(
           doubleRate.toString(),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
-            color: Colors.white,
+            color: textColor ?? Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
